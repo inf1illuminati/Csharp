@@ -28,5 +28,10 @@ namespace RobotArm
             serialPort.PortName = "COM5";
             serialPort.Open();
         }
+
+        private void Form1_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            serialPort.Close();
+        }
     }
 }
