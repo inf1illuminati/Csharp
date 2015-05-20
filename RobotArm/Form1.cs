@@ -70,5 +70,11 @@ namespace RobotArm
         {
             serialPort.Close();
         }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            serialPort.Write("1");
+            //MessageBox.Show(serialPort.PortName.ToString());
+        }
     }
 }
