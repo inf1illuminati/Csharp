@@ -10,6 +10,10 @@ namespace RobotArm
         private SerialPort serialPort;
         private bool found;
 
+        private bool up, down, left, right;
+
+        private string CHAR_STOP = "10";
+
         public Form1()
         {
             InitializeComponent();
@@ -28,6 +32,20 @@ namespace RobotArm
                 Application.DoEvents();
                 Thread.Sleep(1);
             }
+
+            Thread ja = new Thread(() => {
+                while (true)
+                {
+                    try
+                    {
+                        Console.Write(serialPort.ReadExisting());
+                        Thread.Sleep(1);
+                    }
+                    catch (Exception) { }
+                }
+            });
+            ja.IsBackground = true;
+            ja.Start();
 
             /*serialPort = new SerialPort();
             serialPort.BaudRate = 9600;
@@ -75,6 +93,58 @@ namespace RobotArm
         {
             serialPort.Write("1");
             //MessageBox.Show(serialPort.PortName.ToString());
+        }
+
+        private void Form1_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Up) up = true;
+            if (e.KeyCode == Keys.Down) down = true;
+            if (e.KeyCode == Keys.Left) left = true;
+            if (e.KeyCode == Keys.Right) right = true;
+
+            if (e.KeyCode == Keys.S) serialPort.Write("6");
+
+            if (up) serialPort.Write("2");
+            if (down) serialPort.Write("3");
+            if (left && !up) serialPort.Write("4");
+            if (right && !up) serialPort.Write("5");
+
+            if (up && left)
+            {
+                serialPort.Write("7");
+                Console.WriteLine("upleft");
+            }
+            if (up && right)
+            {
+                serialPort.Write("8");
+                Console.WriteLine("upright");
+            }
+
+            if (e.KeyCode == Keys.D1) serialPort.Write("1");
+            if (e.KeyCode == Keys.D2) serialPort.Write("1");
+            if (e.KeyCode == Keys.D3) serialPort.Write("1");
+            if (e.KeyCode == Keys.D4) serialPort.Write("1");
+            if (e.KeyCode == Keys.D5) serialPort.Write("1");
+
+            Console.WriteLine(e.KeyCode);
+        }
+
+        private void Form1_KeyUp(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Up) up = false;
+            if (e.KeyCode == Keys.Down) down = false;
+            if (e.KeyCode == Keys.Left) left = false;
+            if (e.KeyCode == Keys.Right) right = false;
+
+            if (up) serialPort.Write("2");
+            else if (down) serialPort.Write("3");
+            else if (left) serialPort.Write("4");
+            else if (right) serialPort.Write("5");
+            else
+            {
+                serialPort.Write(CHAR_STOP);
+                Console.WriteLine("stop");
+            }
         }
     }
 }
