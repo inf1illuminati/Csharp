@@ -8,11 +8,11 @@ namespace RobotArm
     public partial class Form1 : Form
     {
         private SerialPort serialPort;
-        private bool found;
+        private bool found; //voor het automatisch vinden van de comport
 
-        private bool up, down, left, right;
+        private bool up, down, left, right; //pijltjestoetsen aangeven
 
-        private string CHAR_STOP = "10";
+        private string CHAR_STOP = "9";
 
         public Form1()
         {
@@ -21,7 +21,7 @@ namespace RobotArm
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            foreach (string com in SerialPort.GetPortNames())
+            foreach (string com in SerialPort.GetPortNames()) //code voor het vinden van de comport waarop de arduino is aangesloten, kan zowel via usb als via bleutooth
             {
                 Thread t = new Thread(Check) { IsBackground = true };
                 t.Start(com);
@@ -33,6 +33,8 @@ namespace RobotArm
                 Thread.Sleep(1);
             }
 
+
+            //serialport uitlezen om te kijken wat de arduino terugstuurd
             Thread ja = new Thread(() => {
                 while (true)
                 {
@@ -47,14 +49,14 @@ namespace RobotArm
             ja.IsBackground = true;
             ja.Start();
 
-            /*serialPort = new SerialPort();
+            /*serialPort = new SerialPort(); //oude code die de serialport niet automatisch vind
             serialPort.BaudRate = 9600;
             serialPort.PortName = "COM5";
             serialPort.Open();*/
 
         }
 
-        private void Check(object name)
+        private void Check(object name) //verdere code voor het automatisch vinden van de comport
         {
             SerialPort p = new SerialPort((string)name, 9600);
             bool closeme = true;
