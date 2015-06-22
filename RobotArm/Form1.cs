@@ -12,7 +12,7 @@ namespace RobotArm
 
         private bool up, down, left, right; //pijltjestoetsen aangeven
 
-        private string CHAR_STOP = "9";
+        private string CHAR_STOP = "1";
 
         public Form1()
         {
@@ -122,11 +122,11 @@ namespace RobotArm
                 Console.WriteLine("upright");
             }
 
-            if (e.KeyCode == Keys.D1) serialPort.Write("1");
-            if (e.KeyCode == Keys.D2) serialPort.Write("1");
-            if (e.KeyCode == Keys.D3) serialPort.Write("1");
-            if (e.KeyCode == Keys.D4) serialPort.Write("1");
-            if (e.KeyCode == Keys.D5) serialPort.Write("1");
+            if (e.KeyCode == Keys.D1) serialPort.Write("a");
+            if (e.KeyCode == Keys.D2) serialPort.Write("b");
+            if (e.KeyCode == Keys.D3) serialPort.Write("c");
+            if (e.KeyCode == Keys.D4) serialPort.Write("d");
+            if (e.KeyCode == Keys.D5) serialPort.Write("e");
 
             Console.WriteLine(e.KeyCode);
         }
