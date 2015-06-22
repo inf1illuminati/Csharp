@@ -104,12 +104,12 @@ namespace RobotArm
             if (e.KeyCode == Keys.Left) left = true;
             if (e.KeyCode == Keys.Right) right = true;
 
-            if (e.KeyCode == Keys.S) serialPort.Write("6");
+            if (e.KeyCode == Keys.S) serialPort.Write("h");
 
             if (up) serialPort.Write("2");
             if (down) serialPort.Write("3");
-            if (left && !up) serialPort.Write("4");
-            if (right && !up) serialPort.Write("5");
+            if (left && !up) serialPort.Write("f");
+            if (right && !up) serialPort.Write("g");
 
             if (up && left)
             {
