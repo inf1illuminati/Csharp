@@ -21,7 +21,7 @@ namespace RobotArm
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            foreach (string com in SerialPort.GetPortNames()) //code voor het vinden van de comport waarop de arduino is aangesloten, kan zowel via usb als via bleutooth
+            /*foreach (string com in SerialPort.GetPortNames()) //code voor het vinden van de comport waarop de arduino is aangesloten, kan zowel via usb als via bleutooth
             {
                 Thread t = new Thread(Check) { IsBackground = true };
                 t.Start(com);
@@ -31,7 +31,7 @@ namespace RobotArm
             {
                 Application.DoEvents();
                 Thread.Sleep(1);
-            }
+            }*/
 
 
             //serialport uitlezen om te kijken wat de arduino terugstuurd
@@ -40,7 +40,7 @@ namespace RobotArm
                 {
                     try
                     {
-                        //Console.Write(serialPort.ReadExisting());
+                        Console.Write(serialPort.ReadExisting());
                         Thread.Sleep(1);
                     }
                     catch (Exception) { }
@@ -49,10 +49,10 @@ namespace RobotArm
             ja.IsBackground = true;
             ja.Start();
 
-            /*serialPort = new SerialPort(); //oude code die de serialport niet automatisch vind
+            serialPort = new SerialPort(); //oude code die de serialport niet automatisch vind
             serialPort.BaudRate = 9600;
-            serialPort.PortName = "COM5";
-            serialPort.Open();*/
+            serialPort.PortName = "COM10";
+            serialPort.Open();
 
         }
 
@@ -128,7 +128,7 @@ namespace RobotArm
             if (e.KeyCode == Keys.D4) serialPort.Write("d");
             if (e.KeyCode == Keys.D5) serialPort.Write("e");
 
-            Console.WriteLine(e.KeyCode);
+            //Console.WriteLine(e.KeyCode);
         }
 
         private void Form1_KeyUp(object sender, KeyEventArgs e)
