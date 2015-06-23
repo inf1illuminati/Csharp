@@ -40,7 +40,7 @@ namespace RobotArm
                 {
                     try
                     {
-                        Console.Write(serialPort.ReadExisting());
+                        //Console.Write(serialPort.ReadExisting());
                         Thread.Sleep(1);
                     }
                     catch (Exception) { }
@@ -104,7 +104,7 @@ namespace RobotArm
             if (e.KeyCode == Keys.Left) left = true;
             if (e.KeyCode == Keys.Right) right = true;
 
-            if (e.KeyCode == Keys.S) serialPort.Write("h");
+            if (e.KeyCode == Keys.Space) serialPort.Write("h");
 
             if (up) serialPort.Write("2");
             if (down) serialPort.Write("3");
@@ -140,8 +140,8 @@ namespace RobotArm
 
             if (up) serialPort.Write("2");
             else if (down) serialPort.Write("3");
-            else if (left) serialPort.Write("4");
-            else if (right) serialPort.Write("5");
+            else if (left) serialPort.Write("f");
+            else if (right) serialPort.Write("g");
             else
             {
                 serialPort.Write(CHAR_STOP);
